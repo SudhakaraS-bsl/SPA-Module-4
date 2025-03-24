@@ -1,33 +1,40 @@
 <!DOCTYPE html>
-<html ng-app='ShoppingList'>
+<html ng-app='Registration'>
 
 <head>
   <meta charset="utf-8">
+
+  <title>Module-5 Assignment</title>
+  <!-- styles -->
   <link rel="stylesheet" href="css/styles.css">
-  <title>Module-4 Assignment</title>
-</head>
-
-<body>
-  <h1>Module-4 Coding Assignment</h1>
-  <h2>Welcome to our Restaurant</h2>
-  <ui-view></ui-view>
-
   <!-- Libraries -->
   <script src="lib/angular.min.js"></script>
   <script src="lib/angular-ui-router.min.js"></script>
 
   <!-- Modules -->
-  <script src="src/shoppinglist/shoppinglist.module.js"></script>
+  <script src="src/Registration/Module.js"></script>
 
   <!-- Routes -->
   <script src="src/routes.js"></script>
 
   <!-- 'ShoppingList' module artifacts -->
-  <script src="src/shoppinglist/shoppinglist.component.js"></script>
-  <script src="src/shoppinglist/main-shoppinglist.controller.js"></script>
-  <script src="src/shoppinglist/main-item-shoppinglist.template.js"></script>
-  <script src="src/shoppinglist/shoppinglist.service.js"></script>
+  <script src="src/Registration/RegistrationController.js"></script>
+  <script src="src/Registration/MyInfoController.js"></script>
+  <script src="src/Registration/RegistrationService.js"></script>
+</head>
 
+<body>
+  <fieldset>
+    <legend>
+      <h1>Module-5 Coding Assignment</h1>
+    </legend>
+    <div><a href="#" ui-sref="MyInfo">My Info</a> |
+      <a href="#" ui-sref="Registration">Sign Up</a>
+    </div><br>
+    <div>
+      <ui-view></ui-view>
+    </div>
+  </fieldset>
 </body>
 
 </html>

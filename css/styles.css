@@ -16,4 +16,18 @@ body {
 
 .active {
   font-weight: bold;
+  color: red;
+}
+
+.ng-touched.ng-valid {
+  border: 2px green solid;
+}
+
+.ng-touched.ng-invalid {
+  border: 2px red solid;
+}
+
+.menu a.ng-click-active,
+.menu a:active {
+  background-color: #fff;
 }

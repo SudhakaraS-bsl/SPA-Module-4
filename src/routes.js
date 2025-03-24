@@ -1,39 +1,60 @@
 (function () {
   'use strict';
 
-  angular.module('ShoppingList')
+  angular.module('Registration')
     .config(RoutesConfig);
 
   RoutesConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
   function RoutesConfig($stateProvider, $urlRouterProvider) {
 
-    // Redirect to home page if no other URL matches
+    // Redirect to Registration page if no other URL matches
     $urlRouterProvider.otherwise('/');
-
     // *** Set up UI states ***
     $stateProvider
 
-      // Home page
-      .state('home', {
+      // Registration page
+      .state('Registration', {
         url: '/',
-        templateUrl: 'src/shoppinglist/templates/home.template.html'
-      })
+        templateUrl: 'src/Registration/templates/Registration.template.html',
+        controller: 'RegistrationController as ctrl',
+        resolve: {
+          data: ['RegistrationService', function (RegistrationService) {
+            // var responseObject = RegistrationService.getMenuItems();
+            // console.log('responseObject', responseObject);
 
-      // Premade list page
-      .state('mainList', {
-        url: '/main-list',
-        templateUrl: 'src/shoppinglist/templates/main-shoppinglist.template.html',
-        data: {
-          short_name: 'A'
-        },
-        controller: 'MainShoppingListController as mainList'
-      })
+            // return responseData;
+            console.log('RegistrationService.responseObject', RegistrationService.responseObject);
 
-      .state('mainitemList', {
-        url: '/main-item-list',
-        templateUrl: 'src/shoppinglist/templates/main-item-shoppinglist.template.html',
-         controller: 'MainitemShoppingListController as mainitemList'
-      });
+            if (RegistrationService.responseObject == undefined) {
+              console.log('api call');
+              return RegistrationService.getMenuItems();
+            } else {
+              console.log('reuse data');
+              return RegistrationService.responseObject;
+            }
+
+            // var responseObject;
+            // RegistrationService.getMenuItems()
+            //   .then(function (response) {
+            //     responseObject = response;
+            //     console.log('responseObject', responseObject);
+            //     return responseObject;
+            //   });
+            //return responseObject;
+          }]
+        }
+      })
+      .state('MyInfo', {
+        url: '/my-info',
+        templateUrl: 'src/Registration/templates/myinfo.template.html',
+        controller: 'MyInfoController as ctrl',
+        resolve: {
+          reguser: ['RegistrationService', function (RegistrationService) {
+            return RegistrationService.reguser;
+          }]
+        }
+      })
+      ;
   }
 
 })();
