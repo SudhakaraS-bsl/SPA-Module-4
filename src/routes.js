@@ -1,60 +1,49 @@
 (function () {
   'use strict';
 
-  angular.module('Registration')
+  angular.module('ShoppingList')
     .config(RoutesConfig);
 
   RoutesConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
   function RoutesConfig($stateProvider, $urlRouterProvider) {
 
-    // Redirect to Registration page if no other URL matches
+    // Redirect to home page if no other URL matches
     $urlRouterProvider.otherwise('/');
+
     // *** Set up UI states ***
     $stateProvider
 
-      // Registration page
-      .state('Registration', {
+      // Home page
+      .state('home', {
         url: '/',
-        templateUrl: 'src/Registration/templates/Registration.template.html',
-        controller: 'RegistrationController as ctrl',
-        resolve: {
-          data: ['RegistrationService', function (RegistrationService) {
-            // var responseObject = RegistrationService.getMenuItems();
-            // console.log('responseObject', responseObject);
+        templateUrl: 'src/shoppinglist/templates/home.template.html'
+      })
 
-            // return responseData;
-            console.log('RegistrationService.responseObject', RegistrationService.responseObject);
-
-            if (RegistrationService.responseObject == undefined) {
-              console.log('api call');
-              return RegistrationService.getMenuItems();
-            } else {
-              console.log('reuse data');
-              return RegistrationService.responseObject;
-            }
-
-            // var responseObject;
-            // RegistrationService.getMenuItems()
-            //   .then(function (response) {
-            //     responseObject = response;
-            //     console.log('responseObject', responseObject);
-            //     return responseObject;
-            //   });
-            //return responseObject;
+      // Premade list page
+      .state('mainList', {
+        url: '/main-list',
+        templateUrl: 'src/shoppinglist/templates/main-shoppinglist.template.html',
+        data: {
+          short_name: 'A'
+        },
+        controller: 'MainShoppingListController as mainList',
+        resolve:{
+          data: ['ShoppingListService', function (ShoppingListService) {
+            return ShoppingListService.getItems();
           }]
         }
       })
-      .state('MyInfo', {
-        url: '/my-info',
-        templateUrl: 'src/Registration/templates/myinfo.template.html',
-        controller: 'MyInfoController as ctrl',
-        resolve: {
-          reguser: ['RegistrationService', function (RegistrationService) {
-            return RegistrationService.reguser;
+
+      .state('mainList.mainListItem', {
+        url: '/main-list-item/{short_name}',
+        templateUrl: 'src/shoppinglist/templates/main-item-shoppinglist.template.html',
+         controller: 'MainitemShoppingListController as mainitemList',
+         resolve:{
+          data1: ['ShoppingListService', function (ShoppingListService) {
+            return ShoppingListService.getMenuItems();
           }]
         }
-      })
-      ;
+      });
   }
 
 })();

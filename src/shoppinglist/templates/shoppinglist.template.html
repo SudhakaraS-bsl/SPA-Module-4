@@ -1,0 +1,18 @@
+<table>
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">
+        <ul>
+          <li ng-repeat="item in $ctrl.items">
+            <a ui-sref="mainList.mainListItem({short_name:item.short_name})" title="{{item.special_instructions}}"
+              ui-sref-active="active" href="#">{{
+              item.short_name }}</a> {{ item.name }}
+          </li>
+        </ul>
+      </td>
+      <td style="vertical-align: top;">
+        <ui-view></ui-view>
+      </td>
+    </tr>
+  </tbody>
+</table>

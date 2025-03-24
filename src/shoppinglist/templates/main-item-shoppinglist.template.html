@@ -1,0 +1,7 @@
+<a ui-sref="mainList.mainListItem({short_name:mainitemList.category.short_name})">Category items</a>
+<ul>
+  <li ng-repeat="item in mainitemList.items">
+    <div title="{{item.description}}">{{ item.short_name }} | {{ item.name }} | {{ item.small_portion_name }} | {{
+      item.large_portion_name }}</div>
+  </li>
+</ul>
